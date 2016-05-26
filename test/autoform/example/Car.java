@@ -22,7 +22,7 @@ public class Car {
   @AutoformField(label = "Car price:")
   public BigDecimal price;
 
-  //@AutoformField(label = "Is insured?")
+  @AutoformField(label = "Is insured?")
   public Boolean isInsured;
 
   public String notAnnotadedField;

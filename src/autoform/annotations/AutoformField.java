@@ -1,6 +1,7 @@
 package autoform.annotations;
 
 import autoform.wrappers.FieldWrapper;
+import autoform.wrappers.UndefinedWrapper;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,6 +14,6 @@ public @interface AutoformField {
 
   String label();
 
-  // todo Class<? extends FieldWrapper> wrapper() default FieldWrapper.class;
+  Class<? extends FieldWrapper> wrapper() default UndefinedWrapper.class;
 
 }

@@ -3,10 +3,7 @@ package autoform;
 import autoform.annotations.Autoform;
 import autoform.annotations.AutoformField;
 import autoform.window.GridPaneBuilder;
-import autoform.wrappers.BigDecimalWrapper;
-import autoform.wrappers.FieldWrapper;
-import autoform.wrappers.LocalDateWrapper;
-import autoform.wrappers.StringWrapper;
+import autoform.wrappers.*;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -27,7 +24,7 @@ public class AutoformInstancer {
     Map<Field, FieldWrapper> map = new HashMap<>();
     for (Field field : findAnnotatedFields(input)) {
       AutoformField autoformField = field.getAnnotation(AutoformField.class);
-      FieldWrapper wrapper = instantiateGenericWrapper(field);
+      FieldWrapper wrapper = instantiateWrapper(field, autoformField);
       builder.putRow(autoformField.label(), wrapper.node());
       map.put(field, wrapper);
     }
@@ -44,13 +41,31 @@ public class AutoformInstancer {
     builder.buildStage().show();
   }
 
-  private static FieldWrapper instantiateGenericWrapper(Field field) {
-    if (field.getType() == String.class)
+  @SuppressWarnings("unchecked")
+  private static FieldWrapper instantiateWrapper(Field field, AutoformField annotation) {
+    Class<? extends FieldWrapper> type = (Class<? extends FieldWrapper>) field.getType();
+    if (annotation.wrapper() == UndefinedWrapper.class)
+      return instantiateGenericWrapper(type);
+    return instantiateClass(type);
+  }
+
+  private static FieldWrapper instantiateClass(Class<?> wrapperClass) {
+    try {
+      return (FieldWrapper) wrapperClass.getConstructor().newInstance();
+    } catch (Exception  e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private static FieldWrapper instantiateGenericWrapper(Class<?> type) {
+    if (type == String.class)
       return new StringWrapper();
-    if (field.getType() == LocalDate.class)
+    if (type == LocalDate.class)
       return new LocalDateWrapper();
-    if (field.getType() == BigDecimal.class)
+    if (type == BigDecimal.class)
       return new BigDecimalWrapper();
+    if (type == Boolean.class)
+      return new BooleanWrapper();
     throw new RuntimeException("unsupported type");
   }
 

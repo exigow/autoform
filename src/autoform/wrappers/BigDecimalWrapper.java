@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class BigDecimalWrapper implements FieldWrapper<BigDecimal> {
 
-  private final TextField node = new TextField() {
+  private final TextField node = new TextField("0") {
 
     @Override
     public void replaceText(int start, int end, String text) {
