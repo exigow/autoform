@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 
 public class AutoformInstancer {
 
-  public static <T> void instantiateForm(T input, Consumer<T> filledResult) {
+  public static <T> void createDialog(T input, Consumer<T> filledResult) {
     Autoform classAnnotation = readClassAnnotation(input);
     GridPaneBuilder builder = GridPaneBuilder.loadInitialFxml(classAnnotation.title());
     Map<Field, FieldWrapper> map = new HashMap<>();
