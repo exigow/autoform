@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 
 import java.math.BigDecimal;
 
+// todo rename to numberwrapper (???)
 public class BigDecimalWrapper implements FieldWrapper<BigDecimal> {
 
   private final TextField node = new TextField("0") {
@@ -33,8 +34,13 @@ public class BigDecimalWrapper implements FieldWrapper<BigDecimal> {
   }
 
   @Override
-  public BigDecimal value() {
+  public BigDecimal readValue() {
     return new BigDecimal(node.getText());
+  }
+
+  @Override
+  public void setValue(BigDecimal value) {
+    node.setText(value.toString());
   }
 
 }

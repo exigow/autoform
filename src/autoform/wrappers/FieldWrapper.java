@@ -6,6 +6,8 @@ public interface FieldWrapper<T> {
 
   Node node();
 
-  T value();
+  T readValue();
+
+  void setValue(T value);
 
 }

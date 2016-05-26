@@ -13,8 +13,13 @@ public class StringWrapper implements FieldWrapper<String> {
   }
 
   @Override
-  public String value() {
+  public String readValue() {
     return node.getText();
+  }
+
+  @Override
+  public void setValue(String value) {
+    node.setText(value);
   }
 
 }

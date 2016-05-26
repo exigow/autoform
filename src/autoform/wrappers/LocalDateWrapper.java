@@ -15,8 +15,13 @@ public class LocalDateWrapper implements FieldWrapper<LocalDate> {
   }
 
   @Override
-  public LocalDate value() {
+  public LocalDate readValue() {
     return node.getValue();
+  }
+
+  @Override
+  public void setValue(LocalDate value) {
+    node.setValue(value);
   }
 
 }

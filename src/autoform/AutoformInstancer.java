@@ -29,7 +29,7 @@ public class AutoformInstancer {
     }
     builder.putButton(e -> {
       for (Field field : map.keySet())
-        tryToSetFieldValue(input, field, map.get(field).value());
+        tryToSetFieldValue(input, field, map.get(field).readValue());
       filledResult.accept(input);
     });
     builder.buildStage().show();

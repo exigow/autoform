@@ -13,8 +13,13 @@ public class BooleanWrapper implements FieldWrapper<Boolean> {
   }
 
   @Override
-  public Boolean value() {
+  public Boolean readValue() {
     return node.isSelected();
+  }
+
+  @Override
+  public void setValue(Boolean value) {
+    node.setSelected(value);
   }
 
 }
