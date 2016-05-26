@@ -28,16 +28,19 @@ public class AutoformInstancer {
       map.put(field, wrapper);
     }
     builder.putButton(e -> {
-      for (Field field : map.keySet()) {
-        try {
-          field.set(input, map.get(field).value());
-        } catch (IllegalAccessException e1) {
-          new RuntimeException();
-        }
-      }
+      for (Field field : map.keySet())
+        tryToSetFieldValue(input, field, map.get(field).value());
       filledResult.accept(input);
     });
     builder.buildStage().show();
+  }
+
+  private static void tryToSetFieldValue(Object who, Field where, Object what) {
+    try {
+      where.set(who, what);
+    } catch (IllegalAccessException e) {
+      throw new RuntimeException();
+    }
   }
 
   private static Autoform readClassAnnotation(Object input) {

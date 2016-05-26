@@ -12,7 +12,9 @@ public class Example extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    AutoformInstancer.createDialog(new Car(), car -> System.out.println("Recieved " + car));
+    Car car = new Car();
+    car.modelName = "Initial value";
+    AutoformInstancer.createDialog(car, c -> System.out.println("Recieved " + c));
   }
 
 }
