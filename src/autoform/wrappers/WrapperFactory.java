@@ -14,7 +14,7 @@ public class WrapperFactory {
     Class<? extends FieldWrapper> type = (Class<? extends FieldWrapper>) field.getType();
     if (isUndefined(annotation))
       return instantiateGenericWrapper(type);
-    return instantiateClass(annotation.wrapper());
+    return instantiateWrapper(annotation.wrapper());
   }
 
   private static boolean isUndefined(AutoformField annotation) {
@@ -33,7 +33,7 @@ public class WrapperFactory {
     throw new RuntimeException("unsupported type");
   }
 
-  private static FieldWrapper instantiateClass(Class<?> wrapperClass) {
+  private static FieldWrapper instantiateWrapper(Class<?> wrapperClass) {
     try {
       return (FieldWrapper) wrapperClass.getConstructor().newInstance();
     } catch (Exception  e) {
