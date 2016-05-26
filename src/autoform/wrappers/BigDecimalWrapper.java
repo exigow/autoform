@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 
 import java.math.BigDecimal;
 
-public class NumberWrapper implements FieldWrapper<BigDecimal> {
+public class BigDecimalWrapper implements FieldWrapper<BigDecimal> {
 
   private final TextField node = new TextField("0") {
 

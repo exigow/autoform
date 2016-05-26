@@ -27,7 +27,7 @@ public class WrapperFactory {
     if (type == LocalDate.class)
       return new LocalDateWrapper();
     if (type == BigDecimal.class)
-      return new NumberWrapper();
+      return new BigDecimalWrapper();
     if (type == Boolean.class)
       return new BooleanWrapper();
     throw new RuntimeException("unsupported type");
