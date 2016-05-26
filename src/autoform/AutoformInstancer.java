@@ -24,6 +24,7 @@ public class AutoformInstancer {
     for (Field field : findAnnotatedFields(input)) {
       AutoformField autoformField = field.getAnnotation(AutoformField.class);
       FieldWrapper wrapper = WrapperFactory.instantiateWrapper(field, autoformField);
+      tryToSetInitialWrapperValue(input, field, wrapper);
       builder.putRow(autoformField.label(), wrapper.node());
       map.put(field, wrapper);
     }
@@ -35,9 +36,20 @@ public class AutoformInstancer {
     builder.buildStage().show();
   }
 
-  private static void tryToSetFieldValue(Object who, Field where, Object what) {
+  @SuppressWarnings("unchecked")
+  private static void tryToSetInitialWrapperValue(Object object, Field field, FieldWrapper wrapper) {
     try {
-      where.set(who, what);
+      Object initialValue = field.get(object);
+      if (initialValue != null)
+        wrapper.setValue(initialValue);
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private static void tryToSetFieldValue(Object object, Field field, Object value) {
+    try {
+      field.set(object, value);
     } catch (IllegalAccessException e) {
       throw new RuntimeException();
     }
