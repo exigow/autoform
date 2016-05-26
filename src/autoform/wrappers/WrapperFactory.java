@@ -14,7 +14,7 @@ public class WrapperFactory {
     Class<? extends FieldWrapper> type = (Class<? extends FieldWrapper>) field.getType();
     if (isUndefined(annotation))
       return instantiateGenericWrapper(type);
-    return instantiateClass(type);
+    return instantiateClass(annotation.wrapper());
   }
 
   private static boolean isUndefined(AutoformField annotation) {
