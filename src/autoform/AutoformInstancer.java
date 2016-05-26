@@ -3,13 +3,17 @@ package autoform;
 import autoform.annotations.Autoform;
 import autoform.annotations.AutoformField;
 import autoform.window.GridPaneBuilder;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import autoform.wrappers.FieldWrapper;
+import autoform.wrappers.LocalDateWrapper;
+import autoform.wrappers.StringWrapper;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,13 +22,27 @@ public class AutoformInstancer {
   public static <T> void instantiateForm(T input, Consumer<T> filledResult) {
     Autoform classAnnotation = readClassAnnotation(input);
     GridPaneBuilder builder = GridPaneBuilder.loadInitialFxml(classAnnotation.title());
-    for (Field field : readAnnotatedFields(input)) {
+    Map<Field, FieldWrapper> map = new HashMap<>();
+    for (Field field : findAnnotatedFields(input)) {
       AutoformField autoformField = field.getAnnotation(AutoformField.class);
-      Node left = new Label(autoformField.label());
-      Node right = new TextField();
-      builder.extendWithRow(left, right);
+      FieldWrapper wrapper = instantiateGenericWrapper(field);
+      builder.putRow(autoformField.label(), wrapper.node());
+      map.put(field, wrapper);
     }
+    builder.putButton(e -> {
+      for (Field field : map.keySet())
+        System.out.println(field + " -> " + map.get(field).value());
+
+    });
     builder.buildStage().show();
+  }
+
+  private static FieldWrapper instantiateGenericWrapper(Field field) {
+    if (field.getType() == String.class)
+      return new StringWrapper();
+    if (field.getType() == LocalDate.class)
+      return new LocalDateWrapper();
+    throw new RuntimeException("unsupported type");
   }
 
   private static Autoform readClassAnnotation(Object input) {
@@ -34,9 +52,10 @@ public class AutoformInstancer {
     return annotation;
   }
 
-  private static Collection<Field> readAnnotatedFields(Object input) {
+  private static Collection<Field> findAnnotatedFields(Object input) {
+    Predicate<Field> isAnnotated = e -> e.getAnnotation(AutoformField.class) != null;
     return Stream.of(input.getClass().getFields())
-      .filter(e -> e.getAnnotation(AutoformField.class) != null)
+      .filter(isAnnotated)
       .collect(Collectors.toList());
   }
 

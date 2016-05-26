@@ -1,16 +1,24 @@
 package autoform.window;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class GridPaneBuilder {
 
+  private final static int LEFT_SIDE = 0;
+  private final static int RIGHT_SIDE = 1;
   private final GridPane pane;
   private final String windowTitle;
   private int iterator = 0;
@@ -25,10 +33,21 @@ public class GridPaneBuilder {
     return new GridPaneBuilder(pane, title);
   }
 
-  public GridPaneBuilder extendWithRow(Node leftNode, Node rightNode) {
-    pane.add(leftNode, 0, iterator);
-    pane.add(rightNode, 1, iterator);
+  public GridPaneBuilder putRow(String label, Node valueNode) {
+    Node labelNode = new Label(label);
+    pane.add(labelNode, LEFT_SIDE, iterator);
+    pane.add(valueNode, RIGHT_SIDE, iterator);
     iterator += 1;
+    return this;
+  }
+
+  public GridPaneBuilder putButton(Consumer<ActionEvent> eventConsumer) {
+    HBox box = new HBox();
+    box.setAlignment(Pos.CENTER_RIGHT);
+    Button button = new Button("Click");
+    button.setOnAction(eventConsumer::accept);
+    box.getChildren().add(button);
+    pane.add(box, RIGHT_SIDE, iterator++);
     return this;
   }
 
