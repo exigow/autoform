@@ -19,12 +19,24 @@ public class Car {
   @AutoformField(label = "Date of production:")
   public LocalDate productionDate;
 
-  //@AutoformField(label = "Car price:")
+  @AutoformField(label = "Car price:")
   public BigDecimal price;
 
   //@AutoformField(label = "Is insured?")
   public Boolean isInsured;
 
   public String notAnnotadedField;
+
+  @Override
+  public String toString() {
+    return "Car{" +
+      "modelName='" + modelName + '\'' +
+      ", producerName='" + producerName + '\'' +
+      ", productionDate=" + productionDate +
+      ", price=" + price +
+      ", isInsured=" + isInsured +
+      ", notAnnotadedField='" + notAnnotadedField + '\'' +
+      '}';
+  }
 
 }

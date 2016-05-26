@@ -3,11 +3,13 @@ package autoform;
 import autoform.annotations.Autoform;
 import autoform.annotations.AutoformField;
 import autoform.window.GridPaneBuilder;
+import autoform.wrappers.BigDecimalWrapper;
 import autoform.wrappers.FieldWrapper;
 import autoform.wrappers.LocalDateWrapper;
 import autoform.wrappers.StringWrapper;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,9 +32,14 @@ public class AutoformInstancer {
       map.put(field, wrapper);
     }
     builder.putButton(e -> {
-      for (Field field : map.keySet())
-        System.out.println(field + " -> " + map.get(field).value());
-
+      for (Field field : map.keySet()) {
+        try {
+          field.set(input, map.get(field).value());
+        } catch (IllegalAccessException e1) {
+          new RuntimeException();
+        }
+      }
+      filledResult.accept(input);
     });
     builder.buildStage().show();
   }
@@ -42,6 +49,8 @@ public class AutoformInstancer {
       return new StringWrapper();
     if (field.getType() == LocalDate.class)
       return new LocalDateWrapper();
+    if (field.getType() == BigDecimal.class)
+      return new BigDecimalWrapper();
     throw new RuntimeException("unsupported type");
   }
 
