@@ -1,7 +1,6 @@
 package autoform.wrappers;
 
 import javafx.scene.Node;
-import sun.plugin.dom.exception.InvalidStateException;
 
 public class UndefinedWrapper implements FieldWrapper<Void> {
 
