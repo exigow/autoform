@@ -7,25 +7,14 @@ import java.math.BigDecimal;
 
 public class BigDecimalWrapper implements FieldWrapper<BigDecimal> {
 
-  private final TextField node = new TextField("0") {
+  private final TextField node = new TextField("0");
 
-    @Override
-    public void replaceText(int start, int end, String text) {
-      if (isNumber(text))
-        super.replaceText(start, end, text);
-    }
-
-    @Override
-    public void replaceSelection(String text) {
-      if (isNumber(text))
-        super.replaceSelection(text);
-    }
-
-    private boolean isNumber(String text) {
-      return text.matches("[0-9]*");
-    }
-
-  };
+  {
+    node.textProperty().addListener((observable, oldValue, newValue) -> {
+      if (!newValue.matches("\\d*"))
+        node.setText(oldValue);
+    });
+  }
 
   @Override
   public Node node() {
