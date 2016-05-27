@@ -11,10 +11,7 @@ import java.time.LocalDate;
 public class Car {
 
   @AutoformField(label = "Model name:")
-  public String modelName;
-
-  @AutoformField(label = "Producer name:")
-  public String producerName;
+  public String name;
 
   @AutoformField(label = "Date of production:")
   public LocalDate productionDate;
@@ -28,8 +25,7 @@ public class Car {
   @Override
   public String toString() {
     return "Car{" +
-      "modelName='" + modelName + '\'' +
-      ", producerName='" + producerName + '\'' +
+      "name='" + name + '\'' +
       ", productionDate=" + productionDate +
       ", price=" + price +
       ", isInsured=" + isInsured +

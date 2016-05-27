@@ -17,8 +17,7 @@ public class Example extends Application {
   @Override
   public void start(Stage primaryStage) {
     Car car = new Car();
-    car.modelName = "Voyager";
-    car.producerName = "Chrysler";
+    car.name = "Chrysler Voyager";
     car.isInsured = true;
     car.price = new BigDecimal("3299");
     car.productionDate =  LocalDate.now().minus(10, ChronoUnit.YEARS);
