@@ -1,9 +1,6 @@
 Automatic model dialog JavaFX utility
 =====================================
 
-Idea
-----
-
 1. Annotate your value object class like below:
 
     ```Java
