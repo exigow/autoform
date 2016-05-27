@@ -53,4 +53,4 @@ If the wrapper is not indicated, it will be selected automatically from field ty
 
 TODO
 ----
-* Annotation #name or #title param should be **optional**. In case of lack, field labels should be humanized automatically (with customizable strategy pattern (huh?)), eg. __carProductionDate__ will output __"Car production date:"__.
+* Annotation __#name__ or __#title__ param should be **optional**. In case of lack, field labels should be humanized automatically (with customizable strategy pattern (huh?)), eg. __carProductionDate__ will output __"Car production date:"__.
