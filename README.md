@@ -35,6 +35,7 @@ Idea
 
     ![window screenshot] (https://raw.githubusercontent.com/exigow/autoform/master/screenshots/presentation.png)
 
+Note, that lambda described in #2 will fire after completion. 
 Fields have been completed for presentation purposes. It is possible to initialize window with predefined data, as shown in [example] (https://github.com/exigow/autoform/blob/master/test/autoform/example/Example.java).
 
 TODO
