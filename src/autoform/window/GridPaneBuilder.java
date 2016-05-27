@@ -19,6 +19,7 @@ public class GridPaneBuilder {
 
   private final static int LEFT_SIDE = 0;
   private final static int RIGHT_SIDE = 1;
+  private final Stage stage = new Stage();
   private final GridPane pane;
   private final String windowTitle;
   private int iterator = 0;
@@ -45,14 +46,16 @@ public class GridPaneBuilder {
     HBox box = new HBox();
     box.setAlignment(Pos.CENTER_RIGHT);
     Button button = new Button("Click");
-    button.setOnAction(eventConsumer::accept);
+    button.setOnAction(event -> {
+      eventConsumer.accept(event);
+      stage.close();
+    });
     box.getChildren().add(button);
     pane.add(box, RIGHT_SIDE, iterator++);
     return this;
   }
 
   public Stage buildStage() {
-    Stage stage = new Stage();
     stage.setTitle(windowTitle);
     Scene scene = new Scene(pane);
     stage.setScene(scene);
