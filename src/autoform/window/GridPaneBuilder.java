@@ -45,7 +45,7 @@ public class GridPaneBuilder {
   public GridPaneBuilder putButton(Consumer<ActionEvent> eventConsumer) {
     HBox box = new HBox();
     box.setAlignment(Pos.CENTER_RIGHT);
-    Button button = new Button("Click");
+    Button button = new Button("Accept");
     button.setOnAction(event -> {
       eventConsumer.accept(event);
       stage.close();
