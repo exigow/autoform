@@ -21,7 +21,11 @@ public class Example extends Application {
     car.isInsured = true;
     car.price = new BigDecimal("3299");
     car.productionDate =  LocalDate.now().minus(10, ChronoUnit.YEARS);
-    AutoformInstancer.createDialog(car, c -> System.out.println("Recieved " + c));
+    AutoformInstancer.createDialog(car, Example::catchAcceptedCar);
+  }
+
+  private static void catchAcceptedCar(Car car) {
+    System.out.println("Received: " + car);
   }
 
 }
