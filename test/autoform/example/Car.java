@@ -6,7 +6,6 @@ import autoform.wrappers.BooleanWrapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Autoform(title = "Register your car")
 public class Car {
@@ -26,8 +25,6 @@ public class Car {
   @AutoformField(label = "Is insured?", wrapper = BooleanWrapper.class)
   public Boolean isInsured;
 
-  public String notAnnotadedField;
-
   @Override
   public String toString() {
     return "Car{" +
@@ -36,7 +33,6 @@ public class Car {
       ", productionDate=" + productionDate +
       ", price=" + price +
       ", isInsured=" + isInsured +
-      ", notAnnotadedField='" + notAnnotadedField + '\'' +
       '}';
   }
 

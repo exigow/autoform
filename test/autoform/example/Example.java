@@ -17,8 +17,10 @@ public class Example extends Application {
   @Override
   public void start(Stage primaryStage) {
     Car car = new Car();
-    car.modelName = "Initial readValue";
-    car.price = new BigDecimal("4000");
+    car.modelName = "Voyager";
+    car.producerName = "Chrysler";
+    car.isInsured = true;
+    car.price = new BigDecimal("3299");
     car.productionDate =  LocalDate.now().minus(10, ChronoUnit.YEARS);
     AutoformInstancer.createDialog(car, c -> System.out.println("Recieved " + c));
   }
